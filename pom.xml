@@ -3,11 +3,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>no.finn</groupId>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+    </parent>
+
+    <groupId>no.finn.lambda</groupId>
     <artifactId>lambda-companion</artifactId>
     <version>0.16-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <name>${project.groupId}:${project.artifactId}</name>
     <description>Functional structures and utilities for Java 8 and lambdas</description>
     <url>http://github.com/finn-no/lambda-companion</url>
     <inceptionYear>2014</inceptionYear>
@@ -20,6 +27,21 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>Nicolas Couturier</name>
+            <email>nicolas.couturier@finn.no</email>
+            <organization>FINN.no</organization>
+            <organizationUrl>http://www.finn.no</organizationUrl>
+        </developer>
+        <developer>
+            <name>Sjur Millidahl</name>
+            <email>sjur.millidahl@finn.no</email>
+            <organization>FINN.no</organization>
+            <organizationUrl>http://www.finn.no</organizationUrl>
+        </developer>
+    </developers>
+
     <scm>
         <url>https://github.com/finn-no/lambda-companion</url>
         <connection>scm:git:git@github.com:finn-no/lambda-companion.git</connection>
@@ -30,6 +52,7 @@
     <properties>
         <version.jdk>1.8</version.jdk>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <build.timestamp>${maven.build.timestamp}</build.timestamp>
         <version.gmaven>1.5</version.gmaven>
     </properties>
@@ -67,8 +90,32 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <encoding>UTF-8</encoding>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.gmaven</groupId>
