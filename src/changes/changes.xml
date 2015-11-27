@@ -1,0 +1,103 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+    <body>
+
+
+        <!--
+        Changes.xml provides a place to gather release notes and changelogs across releases.
+        Beforehand such information went to yammer but we would rather see it collected in one place.
+              eg one can generate full history changelogs with `mvn changes:changes-report`.
+
+        Instead of being a duplication of the commit history this list of changes is an explanation
+              to the user of the API changes that they need to know.
+          There's a lot of information that consumers do not care about, keep the changelog strictly "What's in it for me?"
+
+        This list can also be used to check correct release practices,
+              eg correct version increments according to backward compatibility changes.
+
+        If you find an compatibility breakage please post it as a reply to the yammer announcement (cc'ing module developers).
+
+        For help with writing of changes.xml see http://maven.apache.org/plugins/maven-changes-plugin/changes.html
+        -->
+        <release version="0.15">
+            <action dev="niccoutu" type="add">
+                * add equals and hashcode on Pair
+            </action>
+        </release>
+        <release version="0.14">
+            <action dev="niccoutu" type="add">
+                * add shorthand method Try#orElseRethrow for rethrowing caught exception in a Failure
+                * possibility to instantiate a Try as a failure directly from Try#failure
+            </action>
+        </release>
+        <release version="0.13">
+            <action dev="sjumilli" type="add">
+                * Try peekFailure lets one inspect a Try which is a Failure e.g. for logging
+            </action>
+        </release>
+        <release version="0.12">
+            <action dev="sjumilli" type="change">
+                * Try orElse and orElseGet now have a signature like Optional and Either
+            </action>
+        </release>
+        <release version="0.11">
+            <action dev="niccoutu" type="add">
+                * Add some convenience methods for working with Optional
+            </action>
+        </release>
+        <release version="0.10">
+            <action dev="sjumilli" type="add">
+                * Added orElseThrow method for a Try to provide means for an escape back into a try-catch (or throws) flow in java.
+            </action>
+        </release>
+        <release version="0.9">
+            <action dev="firubott" type="add">
+                * Added orElseThrow method for Left and Right to be used if it is necessary to transform from Either based to exception based 'flow'.
+            </action>
+        </release>
+        <release version="0.8">
+            <action dev="sjumilli" type="add">
+                * Added a Try.of for ThrowingSupplier
+            </action>
+        </release>
+        <release version="0.7">
+            <action dev="sjumilli" type="add">
+                * Added the Try class
+            </action>
+        </release>
+        <release version="0.6" >
+            <action dev="niccoutu" type="add">
+                * convenience class Optionals
+            </action>
+        </release>
+        <release version="0.5" >
+            <action dev="niccoutu" type="fix">
+                * fix Left#equals and Right#equals to return true in case of null value in both sides of equals
+                * handle null values properly in toOptional
+            </action>
+        </release>
+        <release version="0.4" >
+            <action dev="erlholmq" type="add">
+                ExtendedStream - wrapper around stream adding missed functions as foldr, toList, toSet, findLast.
+                Streams - stream utility functions - wrap collection/stream in ExtendedStream, generic entryToMap-collector
+            </action>
+        </release>
+        <release version="0.3" >
+            <action dev="niccoutu" type="add">
+                StreambleOptional provides flattening of Stream of Optional
+                Pair provides a Collector to Map
+            </action>
+        </release>
+        <release version="0.2" >
+            <action dev="stihenri" type="add">
+                Add equals, hashcode and toString implementations. 
+            </action>
+        </release>
+        <release version="0.1" >
+            <action dev="niccoutu" type="add">
+                Intital version
+            </action>
+        </release>
+    </body>
+</document>

@@ -1,0 +1,106 @@
+ ${finalName}
+
+#if ($release.getActions().size() == 0)
+No changes defined in this version.
+#else
+#if ($release.getActions('add').size() !=0)
+New features:
+#foreach($actionItem in $release.getActions('add'))
+#set($action=$actionItem.getAction())
+#if ($actionItem.getIssue())
+#set($issue=$actionItem.getIssue())
+#else
+#set($issue="")
+#end
+#if ($actionItem.getDueTo())
+#set($dueto=$actionItem.getDueTo())
+#else
+#set($dueto="")
+#end
+● ${action} #if($!issue != "")
+
+ https://jira.finn.no/browse/$issue #end#if($!dueto != "")
+
+ Thanks to $dueto. #end
+
+#set($issue="")
+#set($dueto="")
+#end 
+#end
+
+#if ($release.getActions('fix').size() !=0)
+Fixed Bugs:
+#foreach($actionItem in $release.getActions('fix'))
+#set($action=$actionItem.getAction())
+#if ($actionItem.getIssue())
+#set($issue=$actionItem.getIssue())
+#else
+#set($issue="")
+#end
+#if ($actionItem.getDueTo())
+#set($dueto=$actionItem.getDueTo())
+#else
+#set($dueto="")
+#end
+● ${action} #if($!issue != "")
+
+ https://jira.finn.no/browse/$issue #end#if($!dueto != "")
+
+ Thanks to $dueto. #end
+
+#set($issue="")
+#set($dueto="")
+#end
+#end
+
+#if ($release.getActions('update').size() !=0)
+Changes:
+#foreach($actionItem in $release.getActions('update'))
+#set($action=$actionItem.getAction())
+#if ($actionItem.getIssue())
+#set($issue=$actionItem.getIssue())
+#else
+#set($issue="")
+#end
+#if ($actionItem.getDueTo())
+#set($dueto=$actionItem.getDueTo())
+#else
+#set($dueto="")
+#end
+● ${action} #if($!issue != "")
+
+ https://jira.finn.no/browse/$issue #end#if($!dueto != "")
+
+ Thanks to $dueto. #end
+
+#set($issue="")
+#set($dueto="")
+#end
+#end
+
+#if ($release.getActions('remove').size() !=0)
+Removed:
+#foreach($actionItem in $release.getActions('remove'))
+#set($action=$actionItem.getAction())
+#if ($actionItem.getIssue())
+#set($issue=$actionItem.getIssue())
+#else
+#set($issue="")
+#end
+#if ($actionItem.getDueTo())
+#set($dueto=$actionItem.getDueTo())
+#else
+#set($dueto="")
+#end
+● ${action} #if($!issue != "")
+
+ https://jira.finn.no/browse/$issue #end#if($!dueto != "")
+
+ Thanks to $dueto. #end
+
+#set($issue="")
+#set($dueto="")
+#end
+#end
+## End of main loop
+#end
