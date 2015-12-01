@@ -3,6 +3,7 @@ package no.finntech.lambdacompanion;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class Failure<T> extends Try<T> {
@@ -27,6 +28,11 @@ public class Failure<T> extends Try<T> {
     @Override
     public <U> Try<U> flatMap(ThrowingFunction<? super T, ? extends Try<U>, ? extends Throwable> mapper) {
         return (Try<U>) this;
+    }
+
+    @Override
+    public Try<T> filter(final Predicate<T> predicate) {
+        return this;
     }
 
     @Override

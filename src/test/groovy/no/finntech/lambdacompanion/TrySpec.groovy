@@ -195,5 +195,21 @@ class TrySpec extends Specification {
         thrown(IOException)
     }
 
+    def "should result in failure when filter does not match" () {
+        given:
+        def myTry = Try.of({ -> "not empty string" });
+        when:
+        def result = myTry.filter({ t -> t.isEmpty() })
+        then:
+        result instanceof Failure
+    }
 
+    def "should result in success when filter matches" () {
+        given:
+        def myTry = Try.of({ -> "" });
+        when:
+        def result = myTry.filter({ t -> t.isEmpty() })
+        then:
+        result instanceof Success
+    }
 }
