@@ -31,8 +31,8 @@ public class Failure<T> extends Try<T> {
     }
 
     @Override
-    public Try<T> filter(final Predicate<T> predicate) {
-        return this;
+    public Optional<Try<T>> filter(final Predicate<T> predicate) {
+        return Optional.empty();
     }
 
     @Override

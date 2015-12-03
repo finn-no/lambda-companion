@@ -34,12 +34,12 @@ public class Success<T> extends Try<T> {
     }
 
     @Override
-    public Try<T> filter(final Predicate<T> predicate) {
+    public Optional<Try<T>> filter(final Predicate<T> predicate) {
         Objects.requireNonNull(predicate);
         if (predicate.test(t)) {
-            return this;
+            return Optional.of(this);
         } else {
-            return new Failure<>(new RuntimeException());
+            return Optional.empty();
         }
     }
 

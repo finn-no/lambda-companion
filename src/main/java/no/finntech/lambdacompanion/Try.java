@@ -43,7 +43,7 @@ public abstract class Try<T> {
      * @param predicate Predicate function to determine Success or Failure
      * @return the same or new try
      */
-    public abstract Try<T> filter(Predicate<T> predicate);
+    public abstract Optional<Try<T>> filter(Predicate<T> predicate);
 
     /**
      * Accepts a consuming function and applies it to the value if it is a Success. Does nothing if Failure.

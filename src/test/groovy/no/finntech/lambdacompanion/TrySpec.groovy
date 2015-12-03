@@ -201,7 +201,7 @@ class TrySpec extends Specification {
         when:
         def result = myTry.filter({ t -> t.isEmpty() })
         then:
-        result instanceof Failure
+        result == Optional.empty()
     }
 
     def "should result in success when filter matches" () {
@@ -210,6 +210,6 @@ class TrySpec extends Specification {
         when:
         def result = myTry.filter({ t -> t.isEmpty() })
         then:
-        result instanceof Success
+        result == Optional.of(new Success(""))
     }
 }
