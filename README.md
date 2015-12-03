@@ -2,6 +2,14 @@
 
 This project adds some concepts that didn't ship with java 8 lambda project like Either<L,R> or Pair<L,R> etc...
 
+# Include from maven
+
+    <dependency>
+        <groupId>no.finn.lambda</groupId>
+        <artifactId>lambda-companion</artifactId>
+        <version>0.18</version>
+    </dependency>
+
 # Either cheatsheet
 
 ## Why Either?
