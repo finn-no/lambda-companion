@@ -23,7 +23,7 @@ public final class Optionals {
      * In case firstCostyOperation() returns an Optional.empty(), then secondCostlyOperation() will be invoked. If secondCostlyOperation()
      * returns a present Optional, then thirdCostlyOperation() won't be invoked.
      * @param suppliers for methods that need to be conditionnally invoked
-     * @param <T>
+     * @param <T> t
      * @return the first supplied Optional that is present
      */
     public static <T> Optional<T> firstOf(final Supplier<Optional<T>>... suppliers) {
@@ -38,8 +38,8 @@ public final class Optionals {
      *     List<String> strings = list.stream().flatMap(Optionals::stream).collect(toList());
      * }
      * </pre>
-     * @param optional
-     * @param <T>
+     * @param optional optional
+     * @param <T> t
      * @return a Stream of 1 element or an empty Stream
      */
     public static <T> Stream<T> stream(final Optional<T> optional) {
@@ -48,9 +48,9 @@ public final class Optionals {
 
     /**
      * Convenience method to filter an optional based on its class and cast it at the same time
-     * @param opt
-     * @param cls
-     * @param <T>
+     * @param opt opt
+     * @param cls cls
+     * @param <T> T
      * @return a present Optional casted to T if present and matching filtering class, else Optional#empty()
      */
     public static <T> Optional<T> filter(final Optional<?> opt, final Class<T> cls) {
@@ -59,7 +59,7 @@ public final class Optionals {
 
     /**
      * Convenience method to build and Optional out of a String that can be null or blank
-     * @param blankable
+     * @param blankable blankable
      * @return a present Optional of the string if not null and not blank, else Optional#empty()
      */
     public static Optional<String> ofBlankable(final String blankable) {

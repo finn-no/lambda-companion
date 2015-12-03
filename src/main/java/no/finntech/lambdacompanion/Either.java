@@ -90,7 +90,7 @@ public abstract class Either<L, R> {
     public abstract <X> Either<L, X> joinRight(final Function<R, Either<L, X>> rightJoiner);
 
     /**
-     * @param value
+     * @param value the value for the left side
      * @param <L>   the type of the left side of the resulting Left[L,R]
      * @param <R>   the type of the right side of the resulting Left[L,R]
      * @return a Left of the given value
@@ -100,7 +100,7 @@ public abstract class Either<L, R> {
     }
 
     /**
-     * @param value
+     * @param value the value for the right side
      * @param <L>   the type of the left side of the resulting Right[L,R]
      * @param <R>   the type of the right side of the resulting Right[L,R]
      * @return a Right of the given value
@@ -135,7 +135,7 @@ public abstract class Either<L, R> {
         }
 
         /**
-         * @param predicate
+         * @param predicate the predicate
          * @return Optional.Absent if this is a Right or if the given predicate p does not hold for the left value, otherwise, returns a Left.
          */
         public Optional<Either<L, R>> filter(final Predicate<L> predicate) {
@@ -146,7 +146,7 @@ public abstract class Either<L, R> {
         /**
          * Executes the given side-effecting function if this is a Left and returns this Either
          *
-         * @param consumer
+         * @param consumer the consumer
          * @return the Either within this projection
          */
         public Either<L, R> peek(final Consumer<? super L> consumer) {
@@ -157,7 +157,7 @@ public abstract class Either<L, R> {
         /**
          * Executes the given side-effecting function if this is a Left
          *
-         * @param consumer
+         * @param consumer the consumer
          */
         public void forEach(final Consumer<? super L> consumer) {
             toOptional().ifPresent(consumer);
@@ -171,7 +171,7 @@ public abstract class Either<L, R> {
         }
 
         /**
-         * @param other
+         * @param other other
          * @return the value from this Left or the given argument if this is a Right.
          */
         public L orElse(final L other) {
@@ -179,7 +179,7 @@ public abstract class Either<L, R> {
         }
 
         /**
-         * @param supplier
+         * @param supplier supplier
          * @return the value from this Left or the supplied argument if this is a Right.
          */
         public L orElseGet(final Supplier<L> supplier) {
@@ -225,7 +225,7 @@ public abstract class Either<L, R> {
         }
 
         /**
-         * @param predicate
+         * @param predicate predicate
          * @return Optional.Absent if this is a Left or if the given predicate p does not hold for the right value, otherwise, returns a Right.
          */
         public Optional<Either<L, R>> filter(final Predicate<R> predicate) {
@@ -236,7 +236,7 @@ public abstract class Either<L, R> {
         /**
          * Executes the given side-effecting function if this is a Right and returns this Either
          *
-         * @param consumer
+         * @param consumer consumer
          * @return the Either within this projection
          */
         public Either<L, R> peek(final Consumer<? super R> consumer) {
@@ -247,7 +247,7 @@ public abstract class Either<L, R> {
         /**
          * Executes the given side-effecting function if this is a Right
          *
-         * @param consumer
+         * @param consumer consumer
          */
         public void forEach(final Consumer<? super R> consumer) {
             toOptional().ifPresent(consumer);
@@ -261,7 +261,7 @@ public abstract class Either<L, R> {
         }
 
         /**
-         * @param other
+         * @param other other
          * @return the value from this Right or the given argument if this is a Left.
          */
         public R orElse(final R other) {
@@ -269,7 +269,7 @@ public abstract class Either<L, R> {
         }
 
         /**
-         * @param supplier
+         * @param supplier supplier
          * @return the value from this Right or the supplied argument if this is a Left.
          */
         public R orElseGet(final Supplier<R> supplier) {

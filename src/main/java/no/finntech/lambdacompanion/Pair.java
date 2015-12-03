@@ -89,6 +89,8 @@ public final class Pair<L, R> {
      * <p>
      * Warning: this Collector will only work when the Stream does not contain duplicate left values in the Pair-s it contains.
      *
+     * @param <K> k
+     * @param <U> u
      * @return a {@link java.util.stream.Collector}
      */
     public static <K, U> Collector<Pair<K, U>, ?, Map<K, U>> toMap() {

@@ -9,6 +9,12 @@ public final class Functions {
     }
 
     /**
+     * @param <A> a
+     * @param <B> b
+     * @param accumulator accumulator
+     * @param b b
+     * @param list list
+     * @return b
      * Head recursive fold. Fold the list by combining the first element with the results of combining the rest
      * <p>
      * Example:
@@ -27,6 +33,12 @@ public final class Functions {
     }
 
     /**
+     * @param <A> a
+     * @param <B> b
+     * @param accumulator accumulator
+     * @param b b
+     * @param list list
+     * @return b
      * Tail recursive fold. Fold the list by recursively combining the results of combining all but the last element with the last one
      * <p>
      * Example:
@@ -45,6 +57,8 @@ public final class Functions {
     }
 
     /**
+     * @param <A> a
+     * @param list list
      * @return first element of the given list.
      * @throws IndexOutOfBoundsException if the list is empty
      */
@@ -53,6 +67,8 @@ public final class Functions {
     }
 
     /**
+     * @param <A> a
+     * @param list list
      * @return all but the first elements of the given list
      * @throws IndexOutOfBoundsException if the list is empty
      */

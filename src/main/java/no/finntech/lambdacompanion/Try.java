@@ -16,7 +16,7 @@ import java.util.function.Supplier;
  * the fold()-method usually comes at the end of a call-chain and forces the handling of both
  * success and failure.
  *
- * @param <T>
+ * @param <T> t
  */
 public abstract class Try<T> {
 
@@ -93,6 +93,7 @@ public abstract class Try<T> {
 
     /**
      * Creates an Either where the Left is the Failure and Right is the Success from this Try
+     * @param <X> throwable
      * @return an Either
      */
     public abstract <X extends Throwable> Either<X,T> toEither();

@@ -36,11 +36,8 @@ public class ExtendedStream<T> implements Stream<T> {
         this.delegate = delegate;
     }
 
-    /**
-     * @see Functions#foldRight(BiFunction, Object, List)
-     */
-    public <R> R foldRight(final BiFunction<T, R, R> accumulator, final R identiy) {
-        return Functions.foldRight(accumulator, identiy, this.toList());
+    public <R> R foldRight(final BiFunction<T, R, R> accumulator, final R identity) {
+        return Functions.foldRight(accumulator, identity, this.toList());
     }
 
     public StreamableOptional<T> findLast() {

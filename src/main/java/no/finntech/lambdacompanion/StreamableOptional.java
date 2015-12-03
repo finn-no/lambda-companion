@@ -43,6 +43,7 @@ public class StreamableOptional<T> {
 
     /**
      * @see java.util.Optional#ifPresent(java.util.function.Consumer)
+     * @param consumer consumer
      */
     public void ifPresent(Consumer<? super T> consumer) {
         optional.ifPresent(consumer);
@@ -50,6 +51,8 @@ public class StreamableOptional<T> {
 
     /**
      * @see java.util.Optional#filter(java.util.function.Predicate)
+     * @param predicate predicate
+     * @return StreamableOptional
      */
     public StreamableOptional<T> filter(Predicate<? super T> predicate) {
         return optional.filter(predicate).map(present -> this).orElse(empty());
@@ -57,6 +60,9 @@ public class StreamableOptional<T> {
 
     /**
      * @see java.util.Optional#map(java.util.function.Function)
+     * @param <U> u
+     * @param mapper mapper
+     * @return U
      */
     public <U> StreamableOptional<U> map(Function<? super T, ? extends U> mapper) {
         return optional.map(mapper).map(StreamableOptional::of).orElse(empty());
@@ -64,6 +70,9 @@ public class StreamableOptional<T> {
 
     /**
      * @see java.util.Optional#flatMap(java.util.function.Function)
+     * @param <U> u
+     * @param mapper mapper
+     * @return U
      */
     public <U> StreamableOptional<U> flatMap(Function<? super T, StreamableOptional<U>> mapper) {
         return optional.map(present -> Objects.requireNonNull(mapper.apply(present))).orElse(empty());
@@ -71,6 +80,8 @@ public class StreamableOptional<T> {
 
     /**
      * @see java.util.Optional#orElse(Object)
+     * @param other other
+     * @return T t
      */
     public T orElse(T other) {
         return optional.orElse(other);
@@ -78,6 +89,8 @@ public class StreamableOptional<T> {
 
     /**
      * @see java.util.Optional#orElseGet(java.util.function.Supplier)
+     * @param other other
+     * @return T t
      */
     public T orElseGet(Supplier<? extends T> other) {
         return optional.orElseGet(other);
@@ -85,6 +98,10 @@ public class StreamableOptional<T> {
 
     /**
      * @see java.util.Optional#orElseThrow(java.util.function.Supplier)
+     * @param exceptionSupplier exceptionSupplier
+     * @param <X> x
+     * @throws X x
+     * @return T t
      */
     public <X extends Throwable> T orElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
         return optional.orElseThrow(exceptionSupplier);
@@ -92,7 +109,6 @@ public class StreamableOptional<T> {
 
     /**
      * Turns this optional into a {@link java.util.stream.Stream}
-     *
      * @return a {@link java.util.stream.Stream} of the one value contained within this optional if it is present, an empty stream else
      */
     public Stream<T> stream() {
@@ -108,6 +124,9 @@ public class StreamableOptional<T> {
 
     /**
      * @see java.util.Optional#of(Object)
+     * @param <T> t
+     * @param value value
+     * @return T t
      */
     public static <T> StreamableOptional<T> of(final T value) {
         return ofOptional(Optional.of(value));
@@ -115,6 +134,9 @@ public class StreamableOptional<T> {
 
     /**
      * @see java.util.Optional#ofNullable(Object)
+     * @param <T> t
+     * @param value value
+     * @return T t
      */
     public static <T> StreamableOptional<T> ofNullable(final T value) {
         return ofOptional(Optional.ofNullable(value));
@@ -123,6 +145,7 @@ public class StreamableOptional<T> {
     /**
      * Builds a StreamableOptional around the given {@link java.util.Optional}
      *
+     * @param <T> t
      * @param optional a regular {@link java.util.Optional}
      * @return a StreamableOptional
      */
@@ -136,6 +159,8 @@ public class StreamableOptional<T> {
 
     /**
      * @see java.util.Optional#empty()
+     * @param <T> t
+     * @return T t
      */
     public static <T> StreamableOptional<T> empty() {
         return (StreamableOptional<T>) EMPTY;
