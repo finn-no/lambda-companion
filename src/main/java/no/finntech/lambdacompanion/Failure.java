@@ -32,7 +32,7 @@ public class Failure<T> extends Try<T> {
 
     @Override
     public Optional<Try<T>> filter(final Predicate<T> predicate) {
-        return Optional.empty();
+        return Optional.of(this);
     }
 
     @Override
