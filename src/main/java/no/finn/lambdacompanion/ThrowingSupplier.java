@@ -1,4 +1,4 @@
-package no.finntech.lambdacompanion;
+package no.finn.lambdacompanion;
 
 @FunctionalInterface
 public interface ThrowingSupplier<T, E extends Throwable> {

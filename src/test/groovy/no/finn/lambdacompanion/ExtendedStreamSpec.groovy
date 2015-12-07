@@ -1,4 +1,4 @@
-package no.finntech.lambdacompanion
+package no.finn.lambdacompanion
 
 import spock.lang.Specification
 

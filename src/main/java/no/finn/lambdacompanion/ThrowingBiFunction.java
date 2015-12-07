@@ -1,4 +1,4 @@
-package no.finntech.lambdacompanion;
+package no.finn.lambdacompanion;
 
 @FunctionalInterface
 public interface ThrowingBiFunction<T,R,S,E extends Throwable> {

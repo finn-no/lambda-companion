@@ -5,7 +5,7 @@
 
     <groupId>no.finn.lambda</groupId>
     <artifactId>lambda-companion</artifactId>
-    <version>0.18</version>
+    <version>0.19-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>

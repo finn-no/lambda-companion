@@ -1,36 +1,42 @@
-package no.finntech.lambdacompanion;
+package no.finn.lambdacompanion;
 
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class Failure<T> extends Try<T> {
+public class Success<T> extends Try<T> {
 
-    private Throwable e;
+    private T t;
 
-    public Failure(Throwable e) {
-        this.e = e;
+    public Success(T t) {
+        this.t = t;
     }
 
-    public Throwable getThrowable() {
-        return e;
-    }
-
-    @SuppressWarnings("unchecked")
     @Override
     public <U> Try<U> map(ThrowingFunction<? super T, ? extends U, ? extends Throwable> mapper) {
-        return (Try<U>) this;
+        try {
+            return new Success<>(mapper.apply(t));
+        } catch (Throwable e) {
+            return new Failure<>(e);
+        }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <U> Try<U> flatMap(ThrowingFunction<? super T, ? extends Try<U>, ? extends Throwable> mapper) {
-        return (Try<U>) this;
+        try {
+            return mapper.apply(t);
+        } catch (Throwable e) {
+            return new Failure<>(e);
+        }
     }
 
     @Override
-    public void forEach(ThrowingConsumer<? super T, ? extends Throwable> consumer) {}
+    public void forEach(ThrowingConsumer<? super T, ? extends Throwable> consumer) {
+        try {
+            consumer.accept(t);
+        } catch (Throwable ignore) {}
+    }
 
     @Override
     public Try<T> peek(ThrowingConsumer<? super T, ? extends Throwable> consumer) {
@@ -40,51 +46,49 @@ public class Failure<T> extends Try<T> {
 
     @Override
     public Try<T> peekFailure(Consumer<Failure<T>> consumer) {
-        consumer.accept(this);
         return this;
     }
 
     @Override
     public T orElse(T defaultValue) {
-        return defaultValue;
+        return t;
     }
 
     @Override
     public T orElseGet(Supplier<? extends T> defaultValue) {
-        return defaultValue.get();
+        return t;
     }
 
     @Override
     public Optional<T> toOptional() {
-        return Optional.empty();
+        return Optional.ofNullable(t);
     }
 
     @Override
     public <U> U recover(Function<? super T, ? extends U> successFunc,
                            Function<Throwable, ? extends U> failureFunc) {
-        return failureFunc.apply(e);
+        return successFunc.apply(t);
     }
 
     @Override
-    public Either<? extends Throwable, T> toEither() {
-        return Either.left(e);
+    public Either<? extends Throwable,T> toEither() {
+        return Either.right(t);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <X extends Throwable, Y extends Throwable> T orElseThrow(Function<X, Y> throwableMapper) throws Y {
-        throw throwableMapper.apply((X) e);
+        return t;
     }
 
     @Override
     public <E extends Throwable> T orElseRethrow() throws E {
-        throw (E) e;
+        return t;
     }
 
     @Override
     public String toString() {
-        return "Failure{" +
-                "e=" + e +
+        return "Success{" +
+                "t=" + t +
                 '}';
     }
 
@@ -93,15 +97,15 @@ public class Failure<T> extends Try<T> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Failure<?> failure = (Failure<?>) o;
+        Success<?> success = (Success<?>) o;
 
-        return !(e != null ? !e.equals(failure.e) : failure.e != null);
+        return !(t != null ? !t.equals(success.t) : success.t != null);
 
     }
 
     @Override
     public int hashCode() {
-        return e != null ? e.hashCode() : 0;
+        return t != null ? t.hashCode() : 0;
     }
 
 }

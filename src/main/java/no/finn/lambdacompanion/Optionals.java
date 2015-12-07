@@ -1,4 +1,4 @@
-package no.finntech.lambdacompanion;
+package no.finn.lambdacompanion;
 
 import java.util.Optional;
 import java.util.function.Supplier;
