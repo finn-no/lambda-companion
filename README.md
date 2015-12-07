@@ -54,7 +54,7 @@ For the ```Right``` side:
 
     final Logger LOGGER = ...;
     final Either<Exception, String> either = ...;
-
+      
     final String myValue = either.left().peek(LOGGER::warn)
                                  .fold(failure -> handleFailure(failure), Function.identity());
 
@@ -64,7 +64,7 @@ For the ```Right``` side:
     final Either<Exception, String> either1 = ...;
     final Either<Exception, String> either2 = ...;
     final Either<Exception, String> either3 = ...;
-
+      
     Arrays.asList(either1, either2, either3).stream().forEach(either -> either.forEach(LOGGER::warn));
 
 ## How can I conditionally chain functions on the happy path?
@@ -72,15 +72,15 @@ For the ```Right``` side:
     private final Either<Exception, String> getUserInput() {
        ...
     }
-
+      
     private final Either<Exception, Integer> processUserInput(final String userInput) {
        ...
     }
-
+      
     private final Either<Exception, Integer> saveUserInput(final Integer userInput) {
        ...
     }
-
+      
     // processUserInput() only gets executed if getUserInput() succeeded, and saveUserInput() only gets executed if processUserInput() succeeded
     final Either<Exception, Integer> chained = getUserInput().joinRight(this::processUserInput).joinRight(this::saveUserInput);
 
@@ -89,7 +89,7 @@ For the ```Right``` side:
     private final Integer processValues(final String val1, final String val2, final String val3) {
        ...
     }
-
+      
     final Either<Exception, String> either1 = ...;
     final Either<Exception, String> either2 = ...;
     final Either<Exception, String> either3 = ...;
@@ -108,8 +108,8 @@ In Java 8 there are 2 options:
 * the bad: filtering with ```isPresent()``` and unwrapping values with ```get()```: ```stream().filter(Optional::isPresent).map(Optional::get)```
 * and the ugly: flat-mapping ```Optional``` values to ```Stream``` of one or no value: ```stream().flatMap(opt -> opt.map(Stream::of).orElseGet(Optional::empty))```
 
-StreamableOptional is a cleaner shorthand for the second solution above (provided that you use ```StreamableOptional``` instead of ```Optional```):
-```stream.flatMap(StreamableOptional::stream)```
+StreamableOptional is a cleaner shorthand for the second solution above (provided that you use ```StreamableOptional``` instead
+of ```Optional``` ): ```stream.flatMap(StreamableOptional::stream)```.
 
 ## How do I retain only present instances
 
@@ -117,7 +117,7 @@ StreamableOptional is a cleaner shorthand for the second solution above (provide
       .stream()
       .flatMap(StreamableOptional::stream)
       .forEach(System.out::println);
-
+      
     // yields :
     // 1
     // 2
@@ -139,7 +139,7 @@ This might indicate a code smell since:
 However, this case can happen when you interact with an API that requires an ```Optional```. Then simply use the ```toOptional()``` method.
 
     public apiMethodRequiringAnOptional(Optional<Whatever> maybe);
-
+      
     // call it
     apiMethodRequiringAnOptional(myStreamableOptional.toOptional());
 
@@ -164,7 +164,7 @@ because of how flatMap borrows inspiration from its counterpart in ```java.util.
         //a chain of Exception-prone operations
         Try.of(Integer::valueOf, "3f")
             .map(x -> x * 2)
-        
+      
         byte[] mybytes = {0b101, 0b001};
                 String myString = Try.of(Float::valueOf, "3F")
                         .map(f -> f * 2)
@@ -195,13 +195,13 @@ because of how flatMap borrows inspiration from its counterpart in ```java.util.
         Integer divByZero = Try.of(Integer::new, 3)
                 .flatMap(i -> div(i, 0))
                 .recover(Function.identity(), a -> 0);
-
+      
         //orElse when Failure
         Integer shouldEqZero = Try.of((a, b) -> a / b, 1, 0).orElse(0);
-
+      
         //orElseGet when Failure (the fallback Supplier is lazy)
         Integer shouldEqZero = Try.of((a, b) -> a / b, 1, 0).orElseGet(() -> 0);
-
+      
         //forEach only runs when success
         new Success<>(3)
                 .forEach(i -> System.out.println("a number : " + i));
@@ -216,11 +216,11 @@ because of how flatMap borrows inspiration from its counterpart in ```java.util.
             //handle and/or propagate
         }
     }
-
+      
     private Try<Integer> div(Integer a, Integer b) {
         return Try.of((x,y) -> x / y, a, b);
     }
-
+      
     //this function must end with a value
     private String handleFailure(Exception e) {
         e.printStackTrace();
