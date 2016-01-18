@@ -3,6 +3,7 @@ package no.finn.lambdacompanion;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -13,7 +14,7 @@ import java.util.function.Supplier;
  * Being right biased, you can map and flatMap on it successivly, delaying handling of failure to
  * the very end of your chain.
  *
- * the fold()-method usually comes at the end of a call-chain and forces the handling of both
+ * the recover-method usually comes at the end of a call-chain and forces the handling of both
  * success and failure.
  *
  * @param <T> t
@@ -36,6 +37,13 @@ public abstract class Try<T> {
      * @return a new Try
      */
     public abstract <U> Try<U> flatMap(ThrowingFunction<? super T, ? extends Try<U>, ? extends Throwable> mapper);
+
+    /**
+     * Applies a filter, where a match returns Success and Failure otherwise.
+     * @param predicate Predicate function to determine Success or Failure
+     * @return the same or new try
+     */
+    public abstract Optional<Try<T>> filter(Predicate<T> predicate);
 
     /**
      * Accepts a consuming function and applies it to the value if it is a Success. Does nothing if Failure.

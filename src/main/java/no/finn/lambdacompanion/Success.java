@@ -1,8 +1,10 @@
 package no.finn.lambdacompanion;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class Success<T> extends Try<T> {
@@ -28,6 +30,16 @@ public class Success<T> extends Try<T> {
             return mapper.apply(t);
         } catch (Throwable e) {
             return new Failure<>(e);
+        }
+    }
+
+    @Override
+    public Optional<Try<T>> filter(final Predicate<T> predicate) {
+        Objects.requireNonNull(predicate);
+        if (predicate.test(t)) {
+            return Optional.of(this);
+        } else {
+            return Optional.empty();
         }
     }
 
