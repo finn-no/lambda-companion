@@ -1,5 +1,8 @@
 package no.finn.lambdacompanion;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -178,6 +181,33 @@ public abstract class Try<T> {
 
     public static <U> Try<U> failure(Throwable throwable) {
         return new Failure<>(throwable);
+    }
+
+    /**
+     * Creates one Try from a list of tries containing the same type, or the _first_ failure in the given list
+     * @param tries List of tries
+     * @param <T> the type
+     * @return One Try containing a list of Ts
+     */
+    static <T> Try<List<T>> sequence(List<Try<T>> tries) {
+        if (tries.size() == 0) {
+            return Try.failure(new IllegalArgumentException("Cannot sequence an empty list"));
+        }
+        Try<List<T>> head = Functions.head(tries).map(Collections::singletonList);
+        if (tries.size() == 1 || !head.toOptional().isPresent()) {
+            return head;
+        }
+        return concat(head, head.flatMap(t -> sequence(Functions.tail(tries))));
+    }
+
+    private static <T> Try<List<T>> concat(Try<List<T>> head, Try<List<T>> tail) {
+        return head.flatMap(l -> tail.map(k -> concat(l, k)));
+    }
+
+    private static <T> List<T> concat(List<T> l, List<T> k) {
+        ArrayList<T> retVal = new ArrayList<>(l);
+        retVal.addAll(k);
+        return retVal;
     }
 
 }
