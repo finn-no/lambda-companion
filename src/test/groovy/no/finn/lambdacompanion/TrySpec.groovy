@@ -195,6 +195,15 @@ class TrySpec extends Specification {
         thrown(IOException)
     }
 
+    def "should result in failure when filter does not match" () {
+        given:
+        def myTry = Try.of({ -> "not empty string" });
+        when:
+        def result = myTry.filter({ t -> t.isEmpty() })
+        then:
+        result == Optional.empty()
+    }
+
     def "should sequence a list of successes to a try of list" () {
         given:
         def successes = Arrays.asList(new Success<>("yo"), new Success<>("dude"), new Success<>("hmm"))
@@ -226,4 +235,12 @@ class TrySpec extends Specification {
 
 
 
+    def "should result in success when filter matches" () {
+        given:
+        def myTry = Try.of({ -> "" });
+        when:
+        def result = myTry.filter({ t -> t.isEmpty() })
+        then:
+        result == Optional.of(new Success(""))
+    }
 }
