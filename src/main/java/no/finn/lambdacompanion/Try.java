@@ -189,7 +189,7 @@ public abstract class Try<T> {
      * @param <T> the type
      * @return One Try containing a list of Ts
      */
-    static <T> Try<List<T>> sequence(List<Try<T>> tries) {
+    public static <T> Try<List<T>> sequence(List<Try<T>> tries) {
         if (tries.size() == 0) {
             return Try.failure(new IllegalArgumentException("Cannot sequence an empty list"));
         }
