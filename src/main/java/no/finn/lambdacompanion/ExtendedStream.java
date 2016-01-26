@@ -1,5 +1,6 @@
 package no.finn.lambdacompanion;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +41,10 @@ public class ExtendedStream<T> implements Stream<T> {
         return Functions.foldRight(accumulator, identity, this.toList());
     }
 
+    public <R> R foldLeft(final BiFunction<T, R, R> accumulator, final R identity) {
+        return Functions.foldLeft(accumulator, identity, this.toList());
+    }
+
     public StreamableOptional<T> findLast() {
         return StreamableOptional.ofOptional(this.reduce((a, b) -> b));
     }
@@ -62,6 +67,14 @@ public class ExtendedStream<T> implements Stream<T> {
     @Override
     public <R> ExtendedStream<R> flatMap(final Function<? super T, ? extends Stream<? extends R>> mapper) {
         return of(delegate.<R>flatMap(mapper));
+    }
+
+    public <R> ExtendedStream<R> flatMapCollection(final Function<? super T, ? extends Collection<? extends R>> mapper) {
+        return of(delegate.map(mapper).flatMap(Collection::stream));
+    }
+
+    public <R> ExtendedStream<R> flatMapOptional(final Function<? super T, Optional<? extends R>> mapper) {
+        return of(delegate.map(mapper).flatMap(maybe -> maybe.map(Stream::of).orElseGet(Stream::empty)));
     }
 
     @Override
@@ -257,4 +270,5 @@ public class ExtendedStream<T> implements Stream<T> {
     public static <T> ExtendedStream<T> of(final Stream<T> stream) {
         return new ExtendedStream<>(stream);
     }
+
 }
