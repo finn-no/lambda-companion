@@ -1,6 +1,7 @@
 package no.finn.lambdacompanion;
 
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -63,6 +64,13 @@ public class Failure<T> extends Try<T> {
     @Override
     public Optional<T> toOptional() {
         return Optional.empty();
+    }
+
+    @Override
+    public CompletableFuture<T> toFuture() {
+        CompletableFuture<T> future = new CompletableFuture<>();
+        future.completeExceptionally(e);
+        return future;
     }
 
     @Override
