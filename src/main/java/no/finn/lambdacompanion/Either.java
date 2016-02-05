@@ -193,7 +193,7 @@ public abstract class Either<L, R> {
          * @throws X                    if this is a Right
          * @throws NullPointerException if no value is present and {@code exceptionSupplier} is null
          */
-        public <X extends Throwable> L orElseThrow(Function<R, X> exceptionMapper) throws X {
+        public <X extends Exception> L orElseThrow(Function<R, X> exceptionMapper) throws X {
             return either.left().toOptional().orElseThrow(() -> exceptionMapper.apply(either.right().toOptional().get()));
         }
 
@@ -283,7 +283,7 @@ public abstract class Either<L, R> {
          * @throws X                    if this is a left
          * @throws NullPointerException if no value is present and {@code exceptionSupplier} is null
          */
-        public <X extends Throwable> R orElseThrow(Function<L, X> exceptionMapper) throws X {
+        public <X extends Exception> R orElseThrow(Function<L, X> exceptionMapper) throws X {
             return either.right().toOptional().orElseThrow(() -> exceptionMapper.apply(either.left().toOptional().get()));
         }
     }

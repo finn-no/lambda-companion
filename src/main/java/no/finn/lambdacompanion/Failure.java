@@ -8,25 +8,25 @@ import java.util.function.Supplier;
 
 public class Failure<T> extends Try<T> {
 
-    private Throwable e;
+    private Exception e;
 
-    public Failure(Throwable e) {
+    public Failure(Exception e) {
         this.e = e;
     }
 
-    public Throwable getThrowable() {
+    public Exception getException() {
         return e;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public <U> Try<U> map(ThrowingFunction<? super T, ? extends U, ? extends Throwable> mapper) {
+    public <U> Try<U> map(ThrowingFunction<? super T, ? extends U, ? extends Exception> mapper) {
         return (Try<U>) this;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public <U> Try<U> flatMap(ThrowingFunction<? super T, ? extends Try<U>, ? extends Throwable> mapper) {
+    public <U> Try<U> flatMap(ThrowingFunction<? super T, ? extends Try<U>, ? extends Exception> mapper) {
         return (Try<U>) this;
     }
 
@@ -36,10 +36,10 @@ public class Failure<T> extends Try<T> {
     }
 
     @Override
-    public void forEach(ThrowingConsumer<? super T, ? extends Throwable> consumer) {}
+    public void forEach(ThrowingConsumer<? super T, ? extends Exception> consumer) {}
 
     @Override
-    public Try<T> peek(ThrowingConsumer<? super T, ? extends Throwable> consumer) {
+    public Try<T> peek(ThrowingConsumer<? super T, ? extends Exception> consumer) {
         forEach(consumer);
         return this;
     }
@@ -67,23 +67,23 @@ public class Failure<T> extends Try<T> {
 
     @Override
     public <U> U recover(Function<? super T, ? extends U> successFunc,
-                           Function<Throwable, ? extends U> failureFunc) {
+                           Function<Exception, ? extends U> failureFunc) {
         return failureFunc.apply(e);
     }
 
     @Override
-    public Either<? extends Throwable, T> toEither() {
+    public Either<? extends Exception, T> toEither() {
         return Either.left(e);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public <X extends Throwable, Y extends Throwable> T orElseThrow(Function<X, Y> throwableMapper) throws Y {
-        throw throwableMapper.apply((X) e);
+    public <X extends Exception, Y extends Exception> T orElseThrow(Function<X, Y> ExceptionMapper) throws Y {
+        throw ExceptionMapper.apply((X) e);
     }
 
     @Override
-    public <E extends Throwable> T orElseRethrow() throws E {
+    public <E extends Exception> T orElseRethrow() throws E {
         throw (E) e;
     }
 

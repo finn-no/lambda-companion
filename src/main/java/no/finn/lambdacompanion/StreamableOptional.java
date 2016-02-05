@@ -103,7 +103,7 @@ public class StreamableOptional<T> {
      * @throws X x
      * @return T t
      */
-    public <X extends Throwable> T orElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
+    public <X extends Exception> T orElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
         return optional.orElseThrow(exceptionSupplier);
     }
 
