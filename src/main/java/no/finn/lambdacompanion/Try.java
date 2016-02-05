@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -109,6 +110,13 @@ public abstract class Try<T> {
      */
     public abstract <X extends Throwable> Either<X,T> toEither();
 
+
+    /**
+     * Creates a CompletableFuture from this Try. The CompletableFuture is completed if the Try is a Success, and exceptionally if the Try
+     * is a Failure
+     * @return A completable Future
+     */
+    public abstract CompletableFuture<T> toFuture();
 
     /**
      * Escapes the Try and enters a regular try-catch flow

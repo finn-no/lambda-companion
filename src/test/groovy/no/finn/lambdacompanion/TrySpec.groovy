@@ -2,6 +2,8 @@ package no.finn.lambdacompanion
 
 import spock.lang.Specification
 
+import java.util.concurrent.CompletableFuture
+
 class TrySpec extends Specification {
 
     def "If Try is a Success, a successful map should yield new success"() {
@@ -233,14 +235,40 @@ class TrySpec extends Specification {
         thrown(IllegalArgumentException)
     }
 
-
-
     def "should result in success when filter matches" () {
         given:
-        def myTry = Try.of({ -> "" });
+        def myTry = Try.of({ -> "" })
         when:
         def result = myTry.filter({ t -> t.isEmpty() })
         then:
         result == Optional.of(new Success(""))
     }
+
+    def "should result in CompletableFuture on when calling toFuture" () {
+        given:
+        def myTry = Try.of({ -> ""})
+        when:
+        def myFuture = myTry.toFuture()
+        then:
+        myFuture instanceof CompletableFuture
+    }
+
+    def "should complete future in normal fashion when calling toFuture on Success" () {
+        given:
+        def myTry = Try.of({ -> "success"})
+        when:
+        def myFutureResult = myTry.toFuture().isCompletedExceptionally()
+        then:
+        !myFutureResult
+    }
+
+    def "should complete future exceptionally when calling toFuture on Failure" () {
+        given:
+        def myTry = Try.failure(new Exception())
+        when:
+        def myFutureResult = myTry.toFuture().isCompletedExceptionally()
+        then:
+        myFutureResult
+    }
+
 }
