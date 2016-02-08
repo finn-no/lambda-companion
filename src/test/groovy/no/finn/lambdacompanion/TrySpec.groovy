@@ -233,14 +233,13 @@ class TrySpec extends Specification {
         thrown(IllegalArgumentException)
     }
 
-
-
     def "should result in success when filter matches" () {
         given:
-        def myTry = Try.of({ -> "" });
+        def myTry = Try.of({ -> "" })
         when:
         def result = myTry.filter({ t -> t.isEmpty() })
         then:
         result == Optional.of(new Success(""))
     }
+
 }

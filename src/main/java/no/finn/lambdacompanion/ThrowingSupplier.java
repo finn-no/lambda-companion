@@ -1,7 +1,7 @@
 package no.finn.lambdacompanion;
 
 @FunctionalInterface
-public interface ThrowingSupplier<T, E extends Throwable> {
+public interface ThrowingSupplier<T, E extends Exception> {
 
     T get() throws E;
 
