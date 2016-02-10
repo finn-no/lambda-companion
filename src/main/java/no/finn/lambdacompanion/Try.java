@@ -178,8 +178,47 @@ public abstract class Try<T> {
         }
     }
 
+    /**
+     * Create a Failure from an Exception
+     * @param Exception base exception
+     * @param <U> Type of returned Try
+     * @return a Failure
+     */
     public static <U> Try<U> failure(Exception Exception) {
         return new Failure<>(Exception);
+    }
+
+    /**
+     * Enhance a void method to return a Try of type Completion
+     * @param throwingConsumer void function throwing Exception
+     * @param param parameter to void function
+     * @param <U> type of void function param
+     * @return Success of Completion or a Failure
+     */
+    public static <U> Try<Completion> completion(ThrowingConsumer<U, ? extends Exception> throwingConsumer, U param) {
+        try {
+            throwingConsumer.accept(param);
+            return new Success<>(new Completion());
+        } catch (Exception e) {
+            return Try.failure(e);
+        }
+     }
+
+    /**
+     * Enhance a void method to return a Try of type Completion
+     * @param throwingBiConsumer void function throwing Exception
+     * @param firstParam first parameter to void function
+     * @param secondParam second parameter to void function
+     * @param <U> type of void function param
+     * @return Success of Completion or a Failure
+     */
+    public static <U, R> Try<Completion> completion(ThrowingBiConsumer<U, R, ? extends Exception> throwingBiConsumer, U firstParam, R secondParam) {
+        try {
+            throwingBiConsumer.accept(firstParam, secondParam);
+            return new Success<>(new Completion());
+        } catch (Exception e) {
+            return Try.failure(e);
+        }
     }
 
     /**
