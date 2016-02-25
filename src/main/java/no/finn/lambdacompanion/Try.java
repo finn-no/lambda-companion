@@ -182,6 +182,10 @@ public abstract class Try<T> {
         return new Failure<>(Exception);
     }
 
+    public static <T> Try<T> success(T value) {
+        return new Success<>(value);
+    }
+
     /**
      * Creates one Try from a list of tries containing the same type, or the _first_ failure in the given list
      * @param tries List of tries
