@@ -178,6 +178,20 @@ public abstract class Try<T> {
         }
     }
 
+    /**
+     * Starting point to the Try structure. Create a try from a void Supplier that throws an Exception
+     * @param supplier The supplier function
+     * @return a Try
+     */
+    public static Try<Void> of(ThrowingVoidSupplier<? extends Exception> supplier) {
+        try {
+            supplier.get();
+            return new Success<>(null);
+        } catch (Exception e) {
+            return new Failure<>(e);
+        }
+    }
+
     public static <U> Try<U> failure(Exception Exception) {
         return new Failure<>(Exception);
     }
