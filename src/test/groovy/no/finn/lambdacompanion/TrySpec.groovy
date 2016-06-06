@@ -152,7 +152,7 @@ class TrySpec extends Specification {
 
     def "should create a Try from a ThrowingSupplier"() {
         given:
-        def myTry = Try.of({ -> new String("") })
+        def myTry = Try.of({ -> new String("") } as ThrowingSupplier)
         when:
         def actual = myTry
         then:
@@ -161,7 +161,7 @@ class TrySpec extends Specification {
 
     def "should get value from orElseThrow if success"() {
         given:
-        def myTry = Try.of({ -> new String("fish") })
+        def myTry = Try.of({ -> new String("fish") } as ThrowingSupplier)
         when:
         def actual = myTry.orElseThrow({ e -> e })
         then:
@@ -179,7 +179,7 @@ class TrySpec extends Specification {
 
     def "should get value from orElseRethrow if success"() {
         given:
-        def myTry = Try.of({ -> new String("fish") })
+        def myTry = Try.of({ -> new String("fish") } as ThrowingSupplier)
         when:
         def actual = myTry.orElseRethrow()
         then:
@@ -197,7 +197,7 @@ class TrySpec extends Specification {
 
     def "should result in failure when filter does not match" () {
         given:
-        def myTry = Try.of({ -> "not empty string" });
+        def myTry = Try.of({ -> "not empty string" } as ThrowingSupplier);
         when:
         def result = myTry.filter({ t -> t.isEmpty() })
         then:
@@ -235,11 +235,20 @@ class TrySpec extends Specification {
 
     def "should result in success when filter matches" () {
         given:
-        def myTry = Try.of({ -> "" })
+        def myTry = Try.of({ -> "" } as ThrowingSupplier)
         when:
         def result = myTry.filter({ t -> t.isEmpty() })
         then:
         result == Optional.of(new Success(""))
     }
 
+    def "should return null if void supplier" () {
+        given:
+        def mTry = Try.of({ System.out.print() } as ThrowingVoidSupplier);
+        when:
+        def result = mTry;
+        then:
+        result instanceof Success
+        result.orElseRethrow() == null
+    }
 }
