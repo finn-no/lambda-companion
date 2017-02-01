@@ -6,6 +6,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+@Deprecated
 public class Failure<T> extends Try<T> {
 
     private Exception e;

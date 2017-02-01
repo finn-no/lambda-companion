@@ -22,6 +22,7 @@ import java.util.function.Supplier;
  *
  * @param <T> t
  */
+@Deprecated
 public abstract class Try<T> {
 
     /**

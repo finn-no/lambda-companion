@@ -29,6 +29,7 @@ import java.util.stream.Stream;
  * Wrapper around an {@link java.util.stream.Stream} that provides some missed functions like
  * {@link #foldRight(java.util.function.BiFunction, Object)}, {@link #toList()} and {@link #toSet()}
  */
+@Deprecated
 public class ExtendedStream<T> implements Stream<T> {
 
     private final Stream<T> delegate;

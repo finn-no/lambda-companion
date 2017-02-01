@@ -15,6 +15,7 @@ import java.util.function.Supplier;
  * @param <L> type of the left side
  * @param <R> type of the right side
  */
+@Deprecated
 public abstract class Either<L, R> {
 
     /**

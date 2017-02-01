@@ -6,6 +6,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Deprecated
 public final class Streams {
 
     public static <T> ExtendedStream<T> stream(final Collection<T> collection) {

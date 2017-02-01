@@ -31,6 +31,7 @@ import java.util.stream.Stream;
  * }
  * </pre>
  */
+@Deprecated
 public class StreamableOptional<T> {
 
     private static final StreamableOptional<?> EMPTY = new StreamableOptional(Optional.empty());
