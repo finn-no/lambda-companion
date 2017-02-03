@@ -13,6 +13,7 @@ import java.util.stream.Stream;
  * @param <L> type of the left side
  * @param <R> type of the right side
  */
+@Deprecated
 public final class Pair<L, R> {
 
     private final L left;

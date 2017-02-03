@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+@Deprecated
 public final class Optionals {
 
     private Optionals() {

@@ -3,6 +3,7 @@ package no.finn.lambdacompanion;
 import java.util.List;
 import java.util.function.BiFunction;
 
+@Deprecated
 public final class Functions {
 
     private Functions() {
