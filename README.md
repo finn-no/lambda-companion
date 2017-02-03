@@ -1,3 +1,8 @@
+
+# Deprecation Notice
+This project is no longer being maintained, and its usage should be replaced with JavaSlang
+
+
 # Purpose
 
 This project adds some concepts that didn't ship with java 8 lambda project like Either<L,R> or Pair<L,R> etc...
