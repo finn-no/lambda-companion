@@ -1,6 +1,6 @@
 
 # Deprecation Notice
-This project is no longer being maintained, and its usage should be replaced with JavaSlang
+This project is no longer being maintained, and its usage should be replaced with Vavr (http://www.vavr.io)
 
 
 # Purpose
@@ -12,7 +12,7 @@ This project adds some concepts that didn't ship with java 8 lambda project like
     <dependency>
         <groupId>no.finn.lambda</groupId>
         <artifactId>lambda-companion</artifactId>
-        <version>0.18</version>
+        <version>0.27</version>
     </dependency>
 
 # Either cheatsheet
